@@ -2,217 +2,323 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="color-scheme" content="light dark" />
+  <meta name="theme-color" content="#f5f5f7" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)" />
   <title>Bar Quest</title>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏋️</text></svg>" />
-  <script type="module" crossorigin src="./assets/index-B5aU4JUH.js"></script>
-  <link rel="stylesheet" crossorigin href="./assets/index-C8WHNAXM.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%230071e3'/><path d='M14 18h36M24 18v9a8 8 0 0 0 16 0v-9' stroke='white' stroke-width='5' fill='none' stroke-linecap='round'/><circle cx='32' cy='42' r='5' fill='white'/></svg>" />
+  <script type="module" crossorigin src="./assets/index-B19Febf0.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-Chqef94v.css">
 </head>
 <body>
-  <header class="topbar">
-    <div class="logo">🏋️ Bar Quest</div>
-    <div class="player">
-      <div class="lvl" id="lvlBadge">Lv 1</div>
-      <div class="xpwrap">
-        <div class="xptitle"><span id="lvlTitle">Stangen-Neuling</span><span id="xpText">0 / 100 XP</span></div>
-        <div class="bar"><div class="fill" id="xpFill"></div></div>
+  <div class="app">
+    <!-- Sidebar (tab bar on narrow screens) -->
+    <nav class="sidebar" aria-label="Navigation">
+      <div class="brand"><span class="brand-mark" data-icon="bar"></span><span>Bar Quest</span></div>
+      <a class="nav" href="#heute" data-route="heute" data-icon="today"><span>Heute</span></a>
+      <a class="nav" href="#fortschritt" data-route="fortschritt" data-icon="progress"><span>Fortschritt</span></a>
+      <a class="nav" href="#training" data-route="training" data-icon="person"><span>Training</span></a>
+      <a class="nav" href="#labor" data-route="labor" data-icon="lab"><span>Labor</span></a>
+      <a class="nav" href="#einstellungen" data-route="einstellungen" data-icon="gear"><span>Einstellungen</span></a>
+      <div class="me">
+        <div class="me-level"><span class="lvl" id="lvlBadge">Lv 1</span><span class="me-title" id="lvlTitle">Stangen-Neuling</span></div>
+        <div class="meter"><div class="meter-fill" id="xpFill"></div></div>
+        <div class="me-meta"><span id="xpText">0 / 100 XP</span><span class="streak" id="streak">0 Tage</span></div>
       </div>
-      <div class="streak" id="streak" title="Tage in Folge">🔥 0</div>
-    </div>
-  </header>
+    </nav>
 
-  <div class="update" id="updateBanner" hidden>✨ Claude hat die Erkennung verbessert – im Projektordner <code>git pull</code> ausführen und die App neu starten.</div>
+    <main class="content">
+      <div class="update" id="updateBanner" hidden></div>
 
-  <main>
-    <!-- HOME -->
-    <section id="home" class="screen active">
-      <div class="grid">
-        <div class="card wide pathcard">
-          <h2>🗺️ Mein Weg <span class="muted">– jeden Tag ein kurzes geführtes Workout (ca. 8 Min.)</span></h2>
-          <div class="paths" id="paths"></div>
-          <div class="row">
-            <button class="primary" id="workoutBtn">▶ Heutiges Workout starten</button>
-            <button class="ghost" id="workoutDemoBtn" title="Simulierter Sportler macht das Workout im Zeitraffer">🤖 Workout-Demo</button>
-          </div>
-        </div>
-        <div class="card start">
-          <h2>Training starten</h2>
-          <div class="choice" id="exChoice">
-            <button class="opt selected" data-ex="pullup"><span class="big">🧗</span>Klimmzüge</button>
-            <button class="opt" data-ex="legraise"><span class="big">🦵</span>Hängendes Beinheben</button>
-          </div>
-          <div class="choice small" id="modeChoice">
-            <button class="opt selected" data-mode="free">💪 Freies Training</button>
-            <button class="opt" data-mode="boss">⚔️ Boss-Kampf <span id="bossPreview"></span></button>
-          </div>
-          <button class="primary" id="startBtn">▶ Kamera starten</button>
-          <label class="ghost file wide-btn" title="Video bleibt auf deinem Rechner – es wird nichts hochgeladen">🎬 Video-Datei analysieren (mp4, mov, webm)<input type="file" id="videoInput" accept="video/*" hidden /></label>
-          <div class="row">
-            <button class="ghost" id="demoBtn" title="Simulierter Sportler zeigt, wie die Erkennung funktioniert">🤖 Demo ansehen</button>
-            <label class="ghost file">📂 Aufnahme abspielen<input type="file" id="replayInput" accept=".json,application/json" hidden /></label>
-          </div>
-          <details class="setup">
-            <summary>📷 So stellst du die Kamera auf</summary>
-            <ul>
-              <li>Kamera <b>frontal</b> vor die Stange, ca. 2–3&nbsp;m Abstand, etwa auf Hüfthöhe.</li>
-              <li>Stange, Hände und <b>der ganze Körper bis zu den Füßen</b> müssen im Bild sein.</li>
-              <li>Gutes Licht, möglichst ruhiger Hintergrund.</li>
-              <li>Starte jede Wiederholung aus der toten Hängung (Arme gestreckt).</li>
-            </ul>
-          </details>
-        </div>
+      <!-- HOME: all non-training views -->
+      <section id="home" class="screen active">
+        <!-- Heute -->
+        <div class="view" id="view-heute" data-view="heute">
+          <header class="page-head">
+            <p class="eyebrow" id="todayDate"></p>
+            <h1 id="greeting">Hallo</h1>
+          </header>
 
-        <div class="card">
-          <h2>📜 Tägliche Quests</h2>
-          <ul class="quests" id="questList"></ul>
-        </div>
-
-        <div class="card">
-          <h2>🏆 Rekorde</h2>
-          <div class="records" id="records"></div>
-          <h3>Letzte Trainings</h3>
-          <ul class="history" id="historyList"></ul>
-        </div>
-
-        <div class="card wide">
-          <h2>🎖️ Erfolge <span class="muted" id="achCount"></span></h2>
-          <div class="achievements" id="achGrid"></div>
-        </div>
-
-        <div class="card wide">
-          <details>
-            <summary><h2 class="inline">⚙️ Einstellungen &amp; Kalibrierung</h2></summary>
-            <div class="settings">
-              <label><input type="checkbox" id="setSound" /> Soundeffekte</label>
-              <div class="slider">
-                <span>🗣️ Sprach-Coach (sagt alles an, du musst nicht auf den Bildschirm schauen)</span>
-                <select id="setCoach">
-                  <option value="full">Ausführlich</option>
-                  <option value="count">Nur zählen</option>
-                  <option value="off">Aus</option>
-                </select>
+          <article class="hero">
+            <div class="hero-main">
+              <p class="eyebrow">Tagesworkout</p>
+              <h2 id="todayTitle">Dein Workout für heute</h2>
+              <p class="secondary" id="todayMeta"></p>
+              <div class="today-paths" id="paths"></div>
+              <div class="hero-actions">
+                <button class="btn btn-primary btn-large" id="workoutBtn" data-icon="play"><span>Workout starten</span></button>
+                <p class="footnote">Vor dem Start prüft die App kurz, ob dich die Kamera gut sieht. Danach führt dich der Sprach-Coach, du musst nichts mehr anklicken.</p>
               </div>
-              <div class="slider">
-                <span>Klimmzug: Ziel-Höhe der Nase relativ zur Stange</span>
-                <input type="range" id="setTopGap" min="-0.15" max="0.3" step="0.01" />
-                <output id="outTopGap"></output>
-              </div>
-              <div class="slider">
-                <span>Klimmzug: Ellbogenwinkel für gestreckte Arme</span>
-                <input type="range" id="setArmAngle" min="120" max="170" step="1" />
-                <output id="outArmAngle"></output>
-              </div>
-              <div class="slider">
-                <span>Beinheben: Ziel-Höhe der Knie (0 = Hüfthöhe)</span>
-                <input type="range" id="setLegTarget" min="-0.5" max="0.2" step="0.01" />
-                <output id="outLegTarget"></output>
-              </div>
-              <div class="slider">
-                <span>Stufe Klimmzug-Weg (falls zu leicht/schwer)</span>
-                <select id="setPullStage"></select>
-              </div>
-              <div class="slider">
-                <span>Stufe Beinheben-Weg</span>
-                <select id="setLegStage"></select>
-              </div>
-              <div class="share">
-                <h3>🤝 Trainings mit Claude teilen</h3>
-                <p class="muted">Nach jedem Training werden Körperpunkte, deine Antworten auf „Stimmt die Zählung?“ und ein Video mit Skelett in dein <b>privates</b> GitHub-Repo (Branch <code>training-data</code>) hochgeladen. Claude wertet sie täglich aus und verbessert die Erkennung.</p>
-                <label><input type="checkbox" id="shareEnabled" /> Trainings automatisch teilen</label>
-                <div class="slider"><span>GitHub-Repo</span><input type="text" id="shareRepo" /></div>
-                <div class="slider"><span>GitHub-Token</span><input type="password" id="shareToken" placeholder="github_pat_…" autocomplete="off" /></div>
-                <details>
-                  <summary>So bekommst du den Token (2 Minuten)</summary>
-                  <ol>
-                    <li>Auf GitHub: <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">Settings → Developer settings → Fine-grained tokens → Generate new token</a></li>
-                    <li>Name z. B. „Bar Quest“, Ablaufdatum nach Wunsch</li>
-                    <li>Repository access: <b>Only select repositories</b> → <code>fitness-gamify</code></li>
-                    <li>Permissions → Repository permissions → <b>Contents: Read and write</b> und <b>Pull requests: Read and write</b></li>
-                    <li>Token erzeugen, kopieren und hier einfügen. Er bleibt nur in diesem Browser gespeichert.</li>
-                  </ol>
-                </details>
-                <div class="row"><button class="ghost" id="shareTest">Verbindung testen</button></div>
-                <div id="shareStatus" class="muted"></div>
-              </div>
-              <div class="calib"><span id="calibInfo"></span> <button class="ghost" id="resetCalib">Kalibrierung zurücksetzen</button></div>
-              <button class="ghost" id="resetThresholds">Standardwerte</button>
-              <button class="ghost danger" id="resetProfile">Fortschritt zurücksetzen</button>
             </div>
-          </details>
+            <div class="hero-rings">
+              <div id="todayRings"></div>
+              <ul class="ring-legend" id="ringLegend"></ul>
+            </div>
+          </article>
         </div>
-      </div>
-    </section>
 
-    <!-- TRAINING -->
-    <section id="train" class="screen">
-      <div class="stage-wrap">
+        <!-- Fortschritt -->
+        <div class="view" id="view-fortschritt" data-view="fortschritt" hidden>
+          <header class="page-head"><h1>Fortschritt</h1></header>
+          <div class="level-card" id="levelCard"></div>
+          <h2 class="section-title">Deine Wege</h2>
+          <div class="paths-full" id="pathsFull"></div>
+          <h2 class="section-title">Letzte 14 Tage</h2>
+          <div class="group chart" id="historyChart"></div>
+          <div class="two-col">
+            <div>
+              <h2 class="section-title">Rekorde</h2>
+              <div class="group records" id="records"></div>
+            </div>
+            <div>
+              <h2 class="section-title">Tägliche Quests</h2>
+              <ul class="group list" id="questList"></ul>
+            </div>
+          </div>
+          <h2 class="section-title">Verlauf</h2>
+          <ul class="group list" id="historyList"></ul>
+          <h2 class="section-title">Erfolge <span class="count-pill" id="achCount"></span></h2>
+          <div class="awards" id="achGrid"></div>
+        </div>
+
+        <!-- Training frei -->
+        <div class="view" id="view-training" data-view="training" hidden>
+          <header class="page-head"><h1>Freies Training</h1><p class="lede">Ohne festen Plan: wähle eine Übung und leg los. Gezählt und bewertet wird wie im Workout.</p></header>
+          <div class="group form">
+            <div class="row-item">
+              <span class="row-label">Übung</span>
+              <div class="segmented" id="exChoice" role="radiogroup" aria-label="Übung">
+                <button class="selected" data-ex="pullup" role="radio">Klimmzüge</button>
+                <button data-ex="legraise" role="radio">Beinheben</button>
+                <button data-ex="hang" role="radio">Hängen</button>
+              </div>
+            </div>
+            <div class="row-item">
+              <span class="row-label">Modus</span>
+              <div class="segmented" id="modeChoice" role="radiogroup" aria-label="Modus">
+                <button class="selected" data-mode="free" role="radio">Frei</button>
+                <button data-mode="boss" role="radio">Boss-Kampf <span class="muted" id="bossPreview"></span></button>
+              </div>
+            </div>
+          </div>
+          <div class="actions-row">
+            <button class="btn btn-primary btn-large" id="startBtn" data-icon="play"><span>Training starten</span></button>
+          </div>
+          <h2 class="section-title">So steht die Kamera richtig</h2>
+          <div class="group setup">
+            <div class="setup-figure" aria-hidden="true">
+              <svg viewBox="0 0 220 140" width="220" height="140">
+                <line x1="130" y1="18" x2="200" y2="18" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+                <circle cx="165" cy="34" r="7" fill="none" stroke="currentColor" stroke-width="3"/>
+                <path d="M152 18 L160 44 M178 18 L170 44 M165 41 V82 M165 82 L158 120 M165 82 L172 120" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round"/>
+                <rect x="18" y="74" width="26" height="18" rx="4" fill="none" stroke="var(--accent)" stroke-width="3"/>
+                <path d="M31 92 V128 M22 128 h18" stroke="var(--accent)" stroke-width="3" stroke-linecap="round"/>
+                <path d="M48 83 L150 24 M48 83 L150 126" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="4 4"/>
+                <text x="80" y="138" font-size="11" fill="currentColor" opacity=".6">2–3 m</text>
+              </svg>
+            </div>
+            <ul class="setup-list">
+              <li>Kamera <b>frontal</b> vor die Stange, etwa auf Hüfthöhe, 2–3 m entfernt.</li>
+              <li>Stange, Hände und der <b>ganze Körper bis zu den Füßen</b> im Bild.</li>
+              <li>Helles Licht von vorne, ruhiger Hintergrund.</li>
+              <li>Jede Wiederholung aus der toten Hängung, Arme gestreckt.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Labor -->
+        <div class="view" id="view-labor" data-view="labor" hidden>
+          <header class="page-head"><h1>Labor</h1><p class="lede">Werkzeuge zum Ausprobieren und Prüfen der Erkennung. Nichts davon zählt für deinen Fortschritt.</p></header>
+          <div class="group list tools">
+            <button class="row-btn" id="workoutDemoBtn" data-icon="robot"><span><b>Workout-Demo</b><small>Ein simulierter Sportler macht das Tagesworkout im Zeitraffer.</small></span></button>
+            <button class="row-btn" id="demoBtn" data-icon="sparkles"><span><b>Erkennungs-Demo</b><small>Saubere, halbe und schwungvolle Wiederholungen der gewählten Übung.</small></span></button>
+            <label class="row-btn" data-icon="film"><span><b>Video analysieren</b><small>Ein gespeichertes Video (mp4, mov, webm) durch die Erkennung schicken. Es bleibt auf deinem Gerät.</small></span><input type="file" id="videoInput" accept="video/*" hidden /></label>
+            <label class="row-btn" data-icon="folder"><span><b>Aufnahme abspielen</b><small>Eine exportierte Körperpunkte-Aufnahme (.json) wiedergeben.</small></span><input type="file" id="replayInput" accept=".json,application/json" hidden /></label>
+          </div>
+          <p class="footnote">Aufnahmen für Tests startest du während eines Trainings mit dem Aufnahme-Knopf in der Steuerleiste.</p>
+        </div>
+
+        <!-- Einstellungen -->
+        <div class="view" id="view-einstellungen" data-view="einstellungen" hidden>
+          <header class="page-head"><h1>Einstellungen</h1></header>
+
+          <h2 class="section-title">Coach & Ton</h2>
+          <div class="group form">
+            <div class="row-item">
+              <span class="row-label">Sprach-Coach<small>Sagt alles an, du musst nicht auf den Bildschirm schauen.</small></span>
+              <select id="setCoach">
+                <option value="full">Ausführlich</option>
+                <option value="count">Nur zählen</option>
+                <option value="off">Aus</option>
+              </select>
+            </div>
+            <label class="row-item"><span class="row-label">Soundeffekte</span><input type="checkbox" class="switch" id="setSound" /></label>
+          </div>
+
+          <h2 class="section-title">Trainingsweg</h2>
+          <div class="group form">
+            <div class="row-item"><span class="row-label">Klimmzug-Weg<small>Falls die Stufe zu leicht oder zu schwer ist.</small></span><select id="setPullStage"></select></div>
+            <div class="row-item"><span class="row-label">Beinheben-Weg</span><select id="setLegStage"></select></div>
+          </div>
+
+          <h2 class="section-title">Erkennung</h2>
+          <div class="group form">
+            <div class="row-item calib"><span class="row-label" id="calibInfo"></span><button class="btn btn-plain" id="resetCalib">Zurücksetzen</button></div>
+            <div class="row-item slider"><span class="row-label">Klimmzug: Ziel-Höhe der Nase</span><input type="range" id="setTopGap" min="-0.15" max="0.3" step="0.01" /><output id="outTopGap"></output></div>
+            <div class="row-item slider"><span class="row-label">Klimmzug: gestreckte Arme ab</span><input type="range" id="setArmAngle" min="120" max="170" step="1" /><output id="outArmAngle"></output></div>
+            <div class="row-item slider"><span class="row-label">Beinheben: Ziel-Höhe der Knie</span><input type="range" id="setLegTarget" min="-0.5" max="0.2" step="0.01" /><output id="outLegTarget"></output></div>
+            <div class="row-item"><span class="row-label">Alle Schwellen</span><button class="btn btn-plain" id="resetThresholds">Standardwerte</button></div>
+          </div>
+
+          <h2 class="section-title">Mit Claude teilen</h2>
+          <div class="group form share">
+            <p class="row-text">Nach jedem Training werden Körperpunkte, deine Antworten auf „Stimmt die Zählung?“ und ein Video mit Skelett in dein <b>privates</b> Repo hochgeladen. Claude wertet sie aus und verbessert die Erkennung.</p>
+            <label class="row-item"><span class="row-label">Trainings automatisch teilen</span><input type="checkbox" class="switch" id="shareEnabled" /></label>
+            <div class="row-item"><span class="row-label">GitHub-Repo</span><input type="text" id="shareRepo" /></div>
+            <div class="row-item"><span class="row-label">GitHub-Token</span><input type="password" id="shareToken" placeholder="github_pat_…" autocomplete="off" /></div>
+            <details class="row-text">
+              <summary>So bekommst du den Token</summary>
+              <ol>
+                <li><a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">Fine-grained Token anlegen</a>, Name „Bar Quest“, kurzes Ablaufdatum.</li>
+                <li>Repository access: <b>Only select repositories</b> → <code>fitness-gamify</code>.</li>
+                <li>Permissions: <b>Contents</b> und <b>Pull requests</b>, jeweils Read and write.</li>
+                <li>Token kopieren und hier einfügen. Er bleibt nur in diesem Browser.</li>
+              </ol>
+            </details>
+            <div class="row-item"><span class="row-label" id="shareStatus"></span><button class="btn btn-plain" id="shareTest">Verbindung testen</button></div>
+          </div>
+
+          <h2 class="section-title">Daten</h2>
+          <div class="group form">
+            <div class="row-item"><span class="row-label">Willkommen-Tour erneut zeigen</span><button class="btn btn-plain" id="showOnboarding">Anzeigen</button></div>
+            <div class="row-item"><span class="row-label">Fortschritt, XP und Erfolge löschen</span><button class="btn btn-plain danger" id="resetProfile">Zurücksetzen</button></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TRAINING (immersive) -->
+      <section id="train" class="screen">
         <div class="stage" id="stage">
           <video id="video" playsinline muted></video>
           <canvas id="canvas"></canvas>
           <div class="hud">
-            <div class="hud-top">
-              <div class="exlabel" id="exLabel"></div>
-              <div class="sourcelabel" id="sourceLabel"></div>
+            <div class="capsule top-capsule">
+              <span class="ex-label" id="exLabel"></span>
+              <span class="source-label" id="sourceLabel"></span>
             </div>
-            <div class="tracking" id="tracking"><div id="trackingText">📡 Tracking –</div><div class="metrics" id="metrics"></div></div>
-            <div class="counter"><span id="count">0</span><small id="countUnit">Wdh.</small></div>
-            <div class="gauge"><div class="gfill" id="gauge"></div><div class="gtarget"></div></div>
+
+            <div class="counter">
+              <svg class="count-ring" viewBox="0 0 160 160" aria-hidden="true">
+                <circle cx="80" cy="80" r="72" class="track"/>
+                <circle cx="80" cy="80" r="72" class="arc" id="countArc" transform="rotate(-90 80 80)"/>
+              </svg>
+              <div class="count-text"><span id="count">0</span><small id="countUnit">Wdh.</small></div>
+            </div>
+            <div class="gauge" aria-hidden="true"><div class="gfill" id="gauge"></div></div>
             <div class="combo" id="combo"></div>
             <div class="popup" id="popup"></div>
-            <div class="hint" id="hint">Lade Pose-Erkennung…</div>
-            <div class="workout" id="workoutPanel" hidden>
+
+            <button class="tracking" id="tracking" title="Erkennung: Details anzeigen"><span class="dot"></span><span id="trackingText">Erkennung</span><span class="metrics" id="metrics"></span></button>
+
+            <div class="glass workout" id="workoutPanel" hidden>
               <div class="wtop" id="wTop"></div>
               <div class="wlabel" id="wLabel"></div>
-              <div class="bar"><div class="fill" id="wFill"></div></div>
+              <div class="meter"><div class="meter-fill" id="wFill"></div></div>
               <div class="wval" id="wVal"></div>
               <div class="wfeedback" id="wFeedback"></div>
             </div>
-            <div class="boss" id="bossPanel" hidden>
+
+            <div class="glass boss" id="bossPanel" hidden>
               <div class="bosshead"><span class="bossemoji" id="bossEmoji"></span><div><div id="bossName"></div><div class="taunt" id="bossTaunt"></div></div><div class="timer" id="bossTimer"></div></div>
-              <div class="bar hp"><div class="fill" id="bossHp"></div></div>
+              <div class="meter hp"><div class="meter-fill" id="bossHp"></div></div>
             </div>
-            <div class="toasts" id="toasts"></div>
+
+            <div class="glass preflight" id="preflightPanel" hidden>
+              <div class="pf-head">
+                <svg class="pf-ring" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="28" class="track"/><circle cx="32" cy="32" r="28" class="arc" id="pfArc" transform="rotate(-90 32 32)"/></svg>
+                <div><div class="pf-title">Kamera-Check</div><div class="pf-sub" id="pfSub">Stell dich unter die Stange.</div></div>
+              </div>
+              <ul class="pf-list" id="pfList"></ul>
+              <button class="btn btn-plain" id="pfSkip">Ohne Check starten</button>
+            </div>
+
+            <div class="hint" id="hint">Lade Erkennung …</div>
+            <div class="toasts" id="toasts" aria-live="polite"></div>
+          </div>
+
+          <div class="controls capsule" role="toolbar" aria-label="Trainingssteuerung">
+            <span class="sessionxp"><span id="sessionXp">0</span> XP</span>
+            <button class="ctl" id="recBtn" data-icon="record" title="Körperpunkte aufnehmen (für Tests)"><span>Aufnahme</span></button>
+            <button class="ctl" id="skipBtn" data-icon="skip" title="Satz beenden (Leertaste)" hidden><span>Satz beenden</span></button>
+            <button class="ctl" id="muteBtn" title="Ton an/aus (M)"></button>
+            <button class="ctl ctl-end" id="endBtn" data-icon="stop" title="Beenden (Esc)"><span>Beenden</span></button>
           </div>
         </div>
-      </div>
-      <div class="controls">
-        <div class="sessionxp">+<span id="sessionXp">0</span> XP</div>
-        <button class="ghost" id="recBtn" title="Speichert deine Körperpunkte (kein Video) als Datei zum Testen/Kalibrieren">⏺ Aufnahme</button>
-        <button class="ghost" id="skipBtn" hidden>⏭ Satz beenden</button>
-        <button class="ghost" id="muteBtn">🔊</button>
-        <button class="primary" id="endBtn">⏹ Satz beenden</button>
-      </div>
-      <ol class="replist" id="repList"></ol>
-    </section>
+        <ol class="replist" id="repList"></ol>
+      </section>
 
-    <!-- RESULT -->
-    <section id="result" class="screen">
-      <div class="card result">
-        <h2 id="resTitle">Satz beendet!</h2>
-        <div class="resstats" id="resStats"></div>
-        <div class="resfeedback" id="resFeedback" hidden></div>
-        <div class="resworkout" id="resWorkout"></div>
-        <div class="resach" id="resAch"></div>
-        <ol class="replist" id="resReps"></ol>
-        <div class="row">
-          <button class="primary" id="againBtn">🔁 Nochmal</button>
-          <button class="ghost" id="homeBtn">🏠 Übersicht</button>
-        </div>
-      </div>
-    </section>
-  </main>
+      <!-- RESULT -->
+      <section id="result" class="screen">
+        <article class="sheet">
+          <div class="sheet-head">
+            <div id="resRings"></div>
+            <div>
+              <p class="eyebrow" id="resEyebrow">Training beendet</p>
+              <h1 id="resTitle">Gut gemacht</h1>
+              <p class="secondary" id="resSummary"></p>
+            </div>
+          </div>
+          <div class="stats" id="resStats"></div>
+          <div class="resfeedback" id="resFeedback" hidden></div>
+          <div class="resworkout" id="resWorkout"></div>
+          <div class="awards small" id="resAch"></div>
+          <ol class="replist" id="resReps"></ol>
+          <div class="sheet-actions">
+            <button class="btn btn-primary btn-large" id="homeBtn"><span>Fertig</span></button>
+            <button class="btn btn-plain" id="againBtn">Nochmal</button>
+          </div>
+        </article>
+      </section>
+    </main>
+  </div>
 
-  <dialog id="recDialog">
+  <!-- First-run welcome -->
+  <dialog id="onboarding" class="onboarding">
+    <div class="ob-step" data-step="0">
+      <div class="ob-mark" data-icon="bar"></div>
+      <h1>Willkommen bei Bar Quest</h1>
+      <p>Deine Kamera zählt Klimmzüge, Beinheben und Hängezeit und bewertet die Technik. Ein Sprach-Coach führt dich Schritt für Schritt zum ersten Klimmzug. Alles läuft auf deinem Gerät.</p>
+    </div>
+    <div class="ob-step" data-step="1" hidden>
+      <div class="ob-mark" data-icon="camera"></div>
+      <h1>Kamera aufstellen</h1>
+      <p>Frontal vor die Stange, etwa auf Hüfthöhe, 2–3 Meter entfernt. Stange und ganzer Körper bis zu den Füßen müssen im Bild sein. Vor jedem Training prüft die App das kurz und startet dann von selbst.</p>
+    </div>
+    <div class="ob-step" data-step="2" hidden>
+      <div class="ob-mark" data-icon="speaker"></div>
+      <h1>Hörst du mich?</h1>
+      <p>Der Coach sagt Sätze, Wiederholungen und Pausen an. Stell den Ton laut genug, dass du ihn an der Stange hörst.</p>
+      <button class="btn btn-tinted" id="obSound" data-icon="speaker"><span>Ton testen</span></button>
+    </div>
+    <div class="ob-dots" id="obDots"><span></span><span></span><span></span></div>
+    <div class="ob-actions">
+      <button class="btn btn-plain" id="obSkip">Überspringen</button>
+      <button class="btn btn-primary" id="obNext" autofocus>Weiter</button>
+    </div>
+  </dialog>
+
+  <dialog id="recDialog" class="sheet-dialog">
     <form method="dialog">
-      <h3>Aufnahme speichern</h3>
-      <p>Die App hat <b id="recCounted">0</b> Wiederholungen gezählt. Wie viele hast du <b>wirklich</b> gemacht?</p>
+      <h2>Aufnahme speichern</h2>
+      <p>Die App hat <b id="recCounted">0</b> Wiederholungen gezählt. Wie viele hast du wirklich gemacht?</p>
       <input type="number" id="recExpected" min="0" step="1" />
-      <p>Notiz (z. B. „Kamera links, 3 halbe Reps dabei“):</p>
+      <p>Notiz, zum Beispiel „Kamera links, 3 halbe Wiederholungen“:</p>
       <input type="text" id="recNote" />
-      <label class="check" id="recVideoRow"><input type="checkbox" id="recVideo" checked /> Video mit Skelett-Overlay mitspeichern (.webm)</label>
-      <div class="row">
-        <button value="save" class="primary">💾 Herunterladen</button>
-        <button value="cancel" class="ghost">Verwerfen</button>
+      <label class="check" id="recVideoRow"><input type="checkbox" id="recVideo" checked /> Video mit Skelett mitspeichern (.webm)</label>
+      <div class="dialog-actions">
+        <button value="cancel" class="btn btn-plain">Verwerfen</button>
+        <button value="save" class="btn btn-primary">Herunterladen</button>
       </div>
     </form>
   </dialog>
