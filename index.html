@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Bar Quest</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏋️</text></svg>" />
-  <script type="module" crossorigin src="./assets/index-CcYpH8Mm.js"></script>
+  <script type="module" crossorigin src="./assets/index-B5aU4JUH.js"></script>
   <link rel="stylesheet" crossorigin href="./assets/index-C8WHNAXM.css">
 </head>
 <body>
@@ -84,7 +84,14 @@
             <summary><h2 class="inline">⚙️ Einstellungen &amp; Kalibrierung</h2></summary>
             <div class="settings">
               <label><input type="checkbox" id="setSound" /> Soundeffekte</label>
-              <label><input type="checkbox" id="setVoice" /> Wiederholungen ansagen (Sprachausgabe)</label>
+              <div class="slider">
+                <span>🗣️ Sprach-Coach (sagt alles an, du musst nicht auf den Bildschirm schauen)</span>
+                <select id="setCoach">
+                  <option value="full">Ausführlich</option>
+                  <option value="count">Nur zählen</option>
+                  <option value="off">Aus</option>
+                </select>
+              </div>
               <div class="slider">
                 <span>Klimmzug: Ziel-Höhe der Nase relativ zur Stange</span>
                 <input type="range" id="setTopGap" min="-0.15" max="0.3" step="0.01" />
