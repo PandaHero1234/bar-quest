@@ -8,8 +8,8 @@
   <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)" />
   <title>Bar Quest</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%230071e3'/><path d='M14 18h36M24 18v9a8 8 0 0 0 16 0v-9' stroke='white' stroke-width='5' fill='none' stroke-linecap='round'/><circle cx='32' cy='42' r='5' fill='white'/></svg>" />
-  <script type="module" crossorigin src="./assets/index-CMIREuZN.js"></script>
-  <link rel="stylesheet" crossorigin href="./assets/index-cZR5OOXI.css">
+  <script type="module" crossorigin src="./assets/index-Rlzki1O0.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-DDSUGtcd.css">
 </head>
 <body>
   <div class="app">
@@ -24,6 +24,7 @@
       <a class="nav" href="#plank" data-route="plank" data-icon="plank"><span>Plank</span></a>
       <p class="nav-label">Spielen</p>
       <a class="nav" href="#arcade" data-route="arcade" data-icon="glove"><span>Arcade</span></a>
+      <a class="nav nav-secondary" href="#watch" data-route="watch" data-icon="tv"><span>Train to Watch</span></a>
       <p class="nav-label">Mehr</p>
       <a class="nav nav-secondary" href="#fortschritt" data-route="fortschritt" data-icon="progress"><span>Fortschritt</span></a>
       <a class="nav nav-secondary" href="#labor" data-route="labor" data-icon="lab"><span>Labor</span></a>
@@ -76,11 +77,15 @@
         <!-- Arcade (fight game) -->
         <div class="view" id="view-arcade" data-view="arcade" hidden></div>
 
+        <!-- Train to Watch (YouTube plays while you move) -->
+        <div class="view" id="view-watch" data-view="watch" hidden></div>
+
         <!-- Mehr (narrow screens) -->
         <div class="view" id="view-mehr" data-view="mehr" hidden>
           <header class="page-head"><h1>Mehr</h1></header>
           <div class="group list tools">
             <a class="row-btn" href="#arcade" data-icon="glove"><span><b>Arcade</b><small>Kampfspiel mit dem ganzen Körper</small></span></a>
+            <a class="row-btn" href="#watch" data-icon="tv"><span><b>Train to Watch</b><small>YouTube läuft, solange du dich bewegst</small></span></a>
             <a class="row-btn" href="#fortschritt" data-icon="progress"><span><b>Fortschritt</b><small>Stufen, Rekorde, Verlauf und Erfolge</small></span></a>
             <a class="row-btn" href="#labor" data-icon="lab"><span><b>Labor</b><small>Demos, Video analysieren, Aufnahmen</small></span></a>
             <a class="row-btn" href="#einstellungen" data-icon="gear"><span><b>Einstellungen</b><small>Coach, Erkennung, Teilen</small></span></a>
@@ -237,6 +242,31 @@
             <button class="ctl" id="fightGfxBtn" data-icon="cube" title="Grafik wechseln (G)"><span>3D</span></button>
             <button class="ctl" id="fightPauseBtn" data-icon="pause" title="Pause (P)"><span>Pause</span></button>
             <button class="ctl ctl-end" id="fightEndBtn" data-icon="stop" title="Beenden (Esc)"><span>Beenden</span></button>
+          </div>
+        </div>
+      </section>
+
+      <!-- WATCH: Train to Watch (immersive) -->
+      <section id="watch" class="screen">
+        <div class="watch-stage" id="watchStage" data-state="paused">
+          <div class="watch-player" id="watchPlayer"></div>
+          <div class="watch-veil" aria-hidden="true"></div>
+          <div class="watch-status" id="watchStatusBox" role="status" aria-live="polite"><b id="watchBig">Lade …</b><span id="watchSub"></span></div>
+          <div class="capsule watch-top"><span class="ex-label">Train to Watch</span><span class="source-label" id="watchInfo"></span></div>
+          <div class="glass watch-coach" id="watchCoach" hidden>
+            <small id="wcStep"></small>
+            <b id="wcText"></b>
+            <span id="wcHow"></span>
+            <div class="wc-progress"><div class="meter"><div class="meter-fill" id="wcBar"></div></div><span id="wcProg"></span></div>
+          </div>
+          <div class="glass watch-room fight-room" id="watchRoom" hidden></div>
+          <div class="watch-side">
+            <div class="watch-cam"><video id="watchVideo" playsinline muted></video><canvas id="watchCanvas"></canvas></div>
+            <div class="watch-meters" id="watchMeters"></div>
+          </div>
+          <div class="controls capsule watch-controls" role="toolbar" aria-label="Steuerung">
+            <button class="ctl" id="watchHoldBtn"><span>Pause</span></button>
+            <button class="ctl ctl-end" id="watchEndBtn" data-icon="stop" title="Beenden (Esc)"><span>Beenden</span></button>
           </div>
         </div>
       </section>
