@@ -8,8 +8,8 @@
   <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)" />
   <title>Bar Quest</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%230071e3'/><path d='M14 18h36M24 18v9a8 8 0 0 0 16 0v-9' stroke='white' stroke-width='5' fill='none' stroke-linecap='round'/><circle cx='32' cy='42' r='5' fill='white'/></svg>" />
-  <script type="module" crossorigin src="./assets/index-CIj0G2m7.js"></script>
-  <link rel="stylesheet" crossorigin href="./assets/index-BDGKbTi3.css">
+  <script type="module" crossorigin src="./assets/index-I-Ye3HPY.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-BU3glngd.css">
 </head>
 <body>
   <div class="app">
@@ -22,6 +22,8 @@
       <a class="nav" href="#handstand" data-route="handstand" data-icon="handstand"><span>Handstand</span></a>
       <a class="nav" href="#liegestuetze" data-route="liegestuetze" data-icon="pushup"><span>Liegestütze</span></a>
       <a class="nav" href="#plank" data-route="plank" data-icon="plank"><span>Plank</span></a>
+      <p class="nav-label">Spielen</p>
+      <a class="nav" href="#arcade" data-route="arcade" data-icon="glove"><span>Arcade</span></a>
       <p class="nav-label">Mehr</p>
       <a class="nav nav-secondary" href="#fortschritt" data-route="fortschritt" data-icon="progress"><span>Fortschritt</span></a>
       <a class="nav nav-secondary" href="#labor" data-route="labor" data-icon="lab"><span>Labor</span></a>
@@ -70,10 +72,14 @@
         <!-- Bereich (Stange, Handstand, Liegestütze, Plank) -->
         <div class="view" id="view-area" data-view="area" hidden></div>
 
+        <!-- Arcade (fight game) -->
+        <div class="view" id="view-arcade" data-view="arcade" hidden></div>
+
         <!-- Mehr (narrow screens) -->
         <div class="view" id="view-mehr" data-view="mehr" hidden>
           <header class="page-head"><h1>Mehr</h1></header>
           <div class="group list tools">
+            <a class="row-btn" href="#arcade" data-icon="glove"><span><b>Arcade</b><small>Kampfspiel mit dem ganzen Körper</small></span></a>
             <a class="row-btn" href="#fortschritt" data-icon="progress"><span><b>Fortschritt</b><small>Stufen, Rekorde, Verlauf und Erfolge</small></span></a>
             <a class="row-btn" href="#labor" data-icon="lab"><span><b>Labor</b><small>Demos, Video analysieren, Aufnahmen</small></span></a>
             <a class="row-btn" href="#einstellungen" data-icon="gear"><span><b>Einstellungen</b><small>Coach, Erkennung, Teilen</small></span></a>
@@ -130,6 +136,7 @@
           </div>
           <div class="group list tools">
             <button class="row-btn" id="workoutDemoBtn" data-icon="robot"><span><b>Workout-Demo</b><small>Ein simulierter Sportler macht das Tagesworkout im Zeitraffer.</small></span></button>
+            <button class="row-btn" id="fightDemoLabBtn" data-icon="glove"><span><b>Demo-Kampf</b><small>Ein simulierter Kämpfer tritt in der Arcade gegen den ersten Gegner an.</small></span></button>
             <button class="row-btn" id="demoBtn" data-icon="sparkles"><span><b>Erkennungs-Demo</b><small>Saubere, halbe und schwungvolle Wiederholungen der gewählten Übung.</small></span></button>
             <label class="row-btn" data-icon="film"><span><b>Video analysieren</b><small>Ein gespeichertes Video (mp4, mov, webm) durch die Erkennung schicken. Es bleibt auf deinem Gerät.</small></span><input type="file" id="videoInput" accept="video/*" hidden /></label>
             <label class="row-btn" data-icon="folder"><span><b>Aufnahme abspielen</b><small>Eine exportierte Körperpunkte-Aufnahme (.json) wiedergeben.</small></span><input type="file" id="replayInput" accept=".json,application/json" hidden /></label>
@@ -196,6 +203,31 @@
       </section>
 
       <!-- TRAINING (immersive) -->
+      <!-- FIGHT: arcade fight screen (immersive) -->
+      <section id="fight" class="screen">
+        <div class="stage fight-stage" id="fightStage">
+          <video id="fightVideo" class="fight-video" playsinline muted></video>
+          <canvas id="fightCanvas" class="fight-canvas"></canvas>
+          <div class="hud">
+            <div class="capsule top-capsule fight-top"><span class="ex-label">Arcade</span><span class="source-label" id="fightSource"></span></div>
+            <div class="glass preflight" id="fightPanel" hidden>
+              <div class="pf-head">
+                <svg class="pf-ring" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="28" class="track"/><circle cx="32" cy="32" r="28" class="arc" id="fightArc" transform="rotate(-90 32 32)"/></svg>
+                <div><div class="pf-title" id="fightTitle">Kamera-Check</div><div class="pf-sub" id="fightSub"></div></div>
+              </div>
+              <ul class="pf-list" id="fightList"></ul>
+              <button class="btn btn-plain" id="fightSkip">Ohne Check starten</button>
+            </div>
+            <div class="glass fight-result" id="fightResult" hidden></div>
+          </div>
+          <div class="controls capsule" role="toolbar" aria-label="Kampfsteuerung">
+            <button class="ctl" id="fightViewBtn" data-icon="camera" title="Ansicht wechseln (V)"><span>Kamerabild</span></button>
+            <button class="ctl" id="fightPauseBtn" data-icon="pause" title="Pause (P)"><span>Pause</span></button>
+            <button class="ctl ctl-end" id="fightEndBtn" data-icon="stop" title="Beenden (Esc)"><span>Beenden</span></button>
+          </div>
+        </div>
+      </section>
+
       <section id="train" class="screen">
         <div class="stage" id="stage">
           <video id="video" playsinline muted></video>
