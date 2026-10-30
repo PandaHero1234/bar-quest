@@ -8,8 +8,8 @@
   <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)" />
   <title>Bar Quest</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%230071e3'/><path d='M14 18h36M24 18v9a8 8 0 0 0 16 0v-9' stroke='white' stroke-width='5' fill='none' stroke-linecap='round'/><circle cx='32' cy='42' r='5' fill='white'/></svg>" />
-  <script type="module" crossorigin src="./assets/index-CayheuxT.js"></script>
-  <link rel="stylesheet" crossorigin href="./assets/index-vtibHEyG.css">
+  <script type="module" crossorigin src="./assets/index-CMIREuZN.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-cZR5OOXI.css">
 </head>
 <body>
   <div class="app">
@@ -30,6 +30,7 @@
       <a class="nav nav-secondary" href="#einstellungen" data-route="einstellungen" data-icon="gear"><span>Einstellungen</span></a>
       <a class="nav nav-more" href="#mehr" data-route="mehr" data-icon="more"><span>Mehr</span></a>
       <div class="me">
+        <button class="me-user" id="meUser" title="Benutzer wechseln">Spieler 1</button>
         <div class="me-level"><span class="lvl" id="lvlBadge">Lv 1</span><span class="me-title" id="lvlTitle">Stangen-Neuling</span></div>
         <div class="meter"><div class="meter-fill" id="xpFill"></div></div>
         <div class="me-meta"><span id="xpText">0 / 100 XP</span><span class="streak" id="streak">0 Tage</span></div>
@@ -176,6 +177,13 @@
             <div class="row-item"><span class="row-label">Alle Schwellen</span><button class="btn btn-plain" id="resetThresholds">Standardwerte</button></div>
           </div>
 
+          <h2 class="section-title">Benutzer & Online-Speicher</h2>
+          <div class="group form">
+            <div class="row-item"><span class="row-label" id="userInfo"></span><button class="btn btn-plain" id="userBtn">Wechseln</button></div>
+            <div class="row-item"><span class="row-label" id="cloudStatus"></span><button class="btn btn-plain" id="cloudSaveBtn">Jetzt speichern</button></div>
+            <div class="row-item"><span class="row-label">Fortschritt aus dem Internet laden<small>Holt einen online gesicherten Stand, auch von einem anderen Gerät.</small></span><button class="btn btn-plain" id="cloudLoadBtn">Laden</button></div>
+          </div>
+
           <h2 class="section-title">Mit Claude teilen</h2>
           <div class="group form share">
             <p class="row-text">Nach jedem Training werden Körperpunkte, deine Antworten auf „Stimmt die Zählung?“ und ein Video mit Skelett in dein <b>privates</b> Repo hochgeladen. Claude wertet sie aus und verbessert die Erkennung.</p>
@@ -188,7 +196,7 @@
                 <li><a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">Fine-grained Token anlegen</a>, Name „Bar Quest“, kurzes Ablaufdatum.</li>
                 <li>Repository access: <b>Only select repositories</b> → <code>fitness-gamify</code>.</li>
                 <li>Permissions: <b>Contents</b> und <b>Pull requests</b>, jeweils Read and write.</li>
-                <li>Token kopieren und hier einfügen. Er bleibt nur in diesem Browser.</li>
+                <li>Token kopieren und hier einfügen. Er bleibt nur in diesem Browser und sichert auch deinen Fortschritt online.</li>
               </ol>
             </details>
             <div class="row-item"><span class="row-label" id="shareStatus"></span><button class="btn btn-plain" id="shareTest">Verbindung testen</button></div>
@@ -221,6 +229,7 @@
               <ul class="pf-list" id="fightList"></ul>
               <button class="btn btn-plain" id="fightSkip">Ohne Check starten</button>
             </div>
+            <div class="fight-vs" id="fightVs" hidden></div>
             <div class="glass fight-result" id="fightResult" hidden></div>
           </div>
           <div class="controls capsule" role="toolbar" aria-label="Kampfsteuerung">
@@ -356,6 +365,29 @@
         <button value="save" class="btn btn-primary">Herunterladen</button>
       </div>
     </form>
+  </dialog>
+
+  <dialog id="userDialog" class="user-dialog">
+    <h2>Benutzer</h2>
+    <p class="dialog-sub">Jeder Benutzer hat eigene Level, XP, Erfolge und Trainingswege.</p>
+    <ul class="group list user-list" id="userList"></ul>
+    <form class="user-new" id="userNewForm">
+      <input type="text" id="userNewName" placeholder="Name" maxlength="24" autocomplete="off" aria-label="Name des neuen Benutzers" />
+      <button class="btn btn-tinted" type="submit">Neuen Benutzer anlegen</button>
+    </form>
+    <div class="dialog-actions">
+      <button class="btn btn-plain" id="userCloudBtn">Aus dem Internet laden</button>
+      <button class="btn btn-primary" id="userDone">Fertig</button>
+    </div>
+  </dialog>
+
+  <dialog id="cloudDialog" class="user-dialog">
+    <h2>Fortschritt aus dem Internet laden</h2>
+    <p class="dialog-sub" id="cloudMsg"></p>
+    <ul class="group list user-list" id="cloudList" hidden></ul>
+    <div class="dialog-actions">
+      <button class="btn btn-primary" id="cloudClose">Schließen</button>
+    </div>
   </dialog>
 
 </body>
