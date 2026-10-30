@@ -8,8 +8,8 @@
   <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)" />
   <title>Bar Quest</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%230071e3'/><path d='M14 18h36M24 18v9a8 8 0 0 0 16 0v-9' stroke='white' stroke-width='5' fill='none' stroke-linecap='round'/><circle cx='32' cy='42' r='5' fill='white'/></svg>" />
-  <script type="module" crossorigin src="./assets/index-Rlzki1O0.js"></script>
-  <link rel="stylesheet" crossorigin href="./assets/index-DDSUGtcd.css">
+  <script type="module" crossorigin src="./assets/index-DCY-Qstv.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-DBDeieL-.css">
 </head>
 <body>
   <div class="app">
@@ -157,11 +157,14 @@
           <h2 class="section-title">Coach & Ton</h2>
           <div class="group form">
             <div class="row-item">
-              <span class="row-label">Sprach-Coach<small>Sagt alles an, du musst nicht auf den Bildschirm schauen.</small></span>
+              <label class="row-label" for="setVoice">Sprach-Coach<small>Sagt alles an, du musst nicht auf den Bildschirm schauen.</small></label>
+              <input type="checkbox" class="switch" id="setVoice" />
+            </div>
+            <div class="row-item">
+              <span class="row-label">Ansagen</span>
               <select id="setCoach">
                 <option value="full">Ausführlich</option>
                 <option value="count">Nur zählen</option>
-                <option value="off">Aus</option>
               </select>
             </div>
             <label class="row-item"><span class="row-label">Soundeffekte</span><input type="checkbox" class="switch" id="setSound" /></label>
@@ -264,8 +267,10 @@
             <div class="watch-cam"><video id="watchVideo" playsinline muted></video><canvas id="watchCanvas"></canvas></div>
             <div class="watch-meters" id="watchMeters"></div>
           </div>
+          <div class="watch-caption" id="watchCaption" role="status" aria-live="polite" hidden></div>
           <div class="controls capsule watch-controls" role="toolbar" aria-label="Steuerung">
             <button class="ctl" id="watchHoldBtn"><span>Pause</span></button>
+            <button class="ctl" id="watchVoiceBtn" title="Sprach-Coach an/aus (V)"><span>Coach an</span></button>
             <button class="ctl ctl-end" id="watchEndBtn" data-icon="stop" title="Beenden (Esc)"><span>Beenden</span></button>
           </div>
         </div>
