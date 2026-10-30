@@ -8,8 +8,8 @@
   <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)" />
   <title>Bar Quest</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%230071e3'/><path d='M14 18h36M24 18v9a8 8 0 0 0 16 0v-9' stroke='white' stroke-width='5' fill='none' stroke-linecap='round'/><circle cx='32' cy='42' r='5' fill='white'/></svg>" />
-  <script type="module" crossorigin src="./assets/index-I-Ye3HPY.js"></script>
-  <link rel="stylesheet" crossorigin href="./assets/index-BU3glngd.css">
+  <script type="module" crossorigin src="./assets/index-CAcI_d8p.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-WXmJmaah.css">
 </head>
 <body>
   <div class="app">
@@ -207,6 +207,8 @@
       <section id="fight" class="screen">
         <div class="stage fight-stage" id="fightStage">
           <video id="fightVideo" class="fight-video" playsinline muted></video>
+          <video id="fightRemote" class="fight-video" playsinline muted></video>
+          <canvas id="fightCanvas3d" class="fight-canvas fight-gl" hidden></canvas>
           <canvas id="fightCanvas" class="fight-canvas"></canvas>
           <div class="hud">
             <div class="capsule top-capsule fight-top"><span class="ex-label">Arcade</span><span class="source-label" id="fightSource"></span></div>
@@ -215,6 +217,7 @@
                 <svg class="pf-ring" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="28" class="track"/><circle cx="32" cy="32" r="28" class="arc" id="fightArc" transform="rotate(-90 32 32)"/></svg>
                 <div><div class="pf-title" id="fightTitle">Kamera-Check</div><div class="pf-sub" id="fightSub"></div></div>
               </div>
+              <div class="fight-room" id="fightRoom" hidden></div>
               <ul class="pf-list" id="fightList"></ul>
               <button class="btn btn-plain" id="fightSkip">Ohne Check starten</button>
             </div>
@@ -222,6 +225,7 @@
           </div>
           <div class="controls capsule" role="toolbar" aria-label="Kampfsteuerung">
             <button class="ctl" id="fightViewBtn" data-icon="camera" title="Ansicht wechseln (V)"><span>Kamerabild</span></button>
+            <button class="ctl" id="fightGfxBtn" data-icon="cube" title="Grafik wechseln (G)"><span>3D</span></button>
             <button class="ctl" id="fightPauseBtn" data-icon="pause" title="Pause (P)"><span>Pause</span></button>
             <button class="ctl ctl-end" id="fightEndBtn" data-icon="stop" title="Beenden (Esc)"><span>Beenden</span></button>
           </div>
