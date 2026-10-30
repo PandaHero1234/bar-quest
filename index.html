@@ -8,8 +8,8 @@
   <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)" />
   <title>Bar Quest</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%230071e3'/><path d='M14 18h36M24 18v9a8 8 0 0 0 16 0v-9' stroke='white' stroke-width='5' fill='none' stroke-linecap='round'/><circle cx='32' cy='42' r='5' fill='white'/></svg>" />
-  <script type="module" crossorigin src="./assets/index-DCY-Qstv.js"></script>
-  <link rel="stylesheet" crossorigin href="./assets/index-DBDeieL-.css">
+  <script type="module" crossorigin src="./assets/index-DpnDZ3cg.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-DLau6NB9.css">
 </head>
 <body>
   <div class="app">
@@ -25,6 +25,7 @@
       <p class="nav-label">Spielen</p>
       <a class="nav" href="#arcade" data-route="arcade" data-icon="glove"><span>Arcade</span></a>
       <a class="nav nav-secondary" href="#watch" data-route="watch" data-icon="tv"><span>Train to Watch</span></a>
+      <a class="nav nav-secondary" href="#mauer" data-route="mauer"><svg class="icon" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="1.5"/><path d="M3 9.7h18M3 14.3h18M9 5v4.7M15 5v4.7M6 9.7v4.6M12 9.7v4.6M18 9.7v4.6M9 14.3V19M15 14.3V19"/></svg><span>Mauer-Kick</span></a>
       <p class="nav-label">Mehr</p>
       <a class="nav nav-secondary" href="#fortschritt" data-route="fortschritt" data-icon="progress"><span>Fortschritt</span></a>
       <a class="nav nav-secondary" href="#labor" data-route="labor" data-icon="lab"><span>Labor</span></a>
@@ -80,12 +81,16 @@
         <!-- Train to Watch (YouTube plays while you move) -->
         <div class="view" id="view-watch" data-view="watch" hidden></div>
 
+        <!-- Mauer-Kick (kick the bricks of a wall away) -->
+        <div class="view" id="view-mauer" data-view="mauer" hidden></div>
+
         <!-- Mehr (narrow screens) -->
         <div class="view" id="view-mehr" data-view="mehr" hidden>
           <header class="page-head"><h1>Mehr</h1></header>
           <div class="group list tools">
             <a class="row-btn" href="#arcade" data-icon="glove"><span><b>Arcade</b><small>Kampfspiel mit dem ganzen Körper</small></span></a>
             <a class="row-btn" href="#watch" data-icon="tv"><span><b>Train to Watch</b><small>YouTube läuft, solange du dich bewegst</small></span></a>
+            <a class="row-btn" href="#mauer"><svg class="icon" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="1.5"/><path d="M3 9.7h18M3 14.3h18M9 5v4.7M15 5v4.7M6 9.7v4.6M12 9.7v4.6M18 9.7v4.6M9 14.3V19M15 14.3V19"/></svg><span><b>Mauer-Kick</b><small>Tritt die Steine einer Mauer weg, 12 Level</small></span></a>
             <a class="row-btn" href="#fortschritt" data-icon="progress"><span><b>Fortschritt</b><small>Stufen, Rekorde, Verlauf und Erfolge</small></span></a>
             <a class="row-btn" href="#labor" data-icon="lab"><span><b>Labor</b><small>Demos, Video analysieren, Aufnahmen</small></span></a>
             <a class="row-btn" href="#einstellungen" data-icon="gear"><span><b>Einstellungen</b><small>Coach, Erkennung, Teilen</small></span></a>
@@ -272,6 +277,26 @@
             <button class="ctl" id="watchHoldBtn"><span>Pause</span></button>
             <button class="ctl" id="watchVoiceBtn" title="Sprach-Coach an/aus (V)"><span>Coach an</span></button>
             <button class="ctl ctl-end" id="watchEndBtn" data-icon="stop" title="Beenden (Esc)"><span>Beenden</span></button>
+          </div>
+        </div>
+      </section>
+
+      <!-- MAUER-KICK: kick the bricks away (immersive) -->
+      <section id="wall" class="screen">
+        <div class="wall-stage" id="wallStage" data-phase="countdown">
+          <video id="wallVideo" class="wall-video" playsinline muted></video>
+          <canvas id="wallCanvas" class="wall-canvas"></canvas>
+          <div class="wall-huds" id="wallHuds"></div>
+          <div class="glass wall-remote" id="wallRemote" hidden></div>
+          <div class="glass wall-room fight-room" id="wallRoom" hidden></div>
+          <div class="wall-big" id="wallBig" role="status" aria-live="polite"></div>
+          <div class="wall-banner" id="wallBanner" role="alert" hidden></div>
+          <div class="glass wall-card" id="wallCard" hidden></div>
+          <div class="watch-caption wall-caption" id="wallCaption" role="status" aria-live="polite" hidden></div>
+          <div class="controls capsule wall-controls" role="toolbar" aria-label="Steuerung">
+            <button class="ctl" id="wallPauseBtn" title="Pause (P)"><span>Pause</span></button>
+            <button class="ctl" id="wallVoiceBtn" title="Sprach-Coach an/aus (V)"><span>Coach an</span></button>
+            <button class="ctl ctl-end" id="wallEndBtn" data-icon="stop" title="Beenden (Esc)"><span>Beenden</span></button>
           </div>
         </div>
       </section>
