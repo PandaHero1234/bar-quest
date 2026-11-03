@@ -8,8 +8,8 @@
   <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)" />
   <title>Bar Quest</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%230071e3'/><path d='M14 18h36M24 18v9a8 8 0 0 0 16 0v-9' stroke='white' stroke-width='5' fill='none' stroke-linecap='round'/><circle cx='32' cy='42' r='5' fill='white'/></svg>" />
-  <script type="module" crossorigin src="./assets/index-bqZYYKsw.js"></script>
-  <link rel="stylesheet" crossorigin href="./assets/index-BRTVsh5O.css">
+  <script type="module" crossorigin src="./assets/index-BWldaTGb.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-D4pOtKRQ.css">
 </head>
 <body>
   <div class="app">
@@ -22,6 +22,7 @@
       <a class="nav" href="#handstand" data-route="handstand" data-icon="handstand"><span>Handstand</span></a>
       <a class="nav" href="#liegestuetze" data-route="liegestuetze" data-icon="pushup"><span>Liegestütze</span></a>
       <a class="nav" href="#plank" data-route="plank" data-icon="plank"><span>Plank</span></a>
+      <a class="nav nav-secondary" href="#kurzhantel" data-route="kurzhantel" data-icon="dumbbell"><span>Kurzhantel</span></a>
       <p class="nav-label">Spielen</p>
       <a class="nav" href="#arcade" data-route="arcade" data-icon="glove"><span>Arcade</span></a>
       <a class="nav nav-secondary" href="#watch" data-route="watch" data-icon="tv"><span>Train to Watch</span></a>
@@ -91,6 +92,7 @@
         <div class="view" id="view-mehr" data-view="mehr" hidden>
           <header class="page-head"><h1>Mehr</h1></header>
           <div class="group list tools">
+            <a class="row-btn" href="#kurzhantel" data-icon="dumbbell"><span><b>Kurzhantel</b><small>12 Übungen mit Gewicht, die Kamera zählt mit</small></span></a>
             <a class="row-btn" href="#arcade" data-icon="glove"><span><b>Arcade</b><small>Kampfspiel mit dem ganzen Körper</small></span></a>
             <a class="row-btn" href="#watch" data-icon="tv"><span><b>Train to Watch</b><small>YouTube läuft, solange du dich bewegst</small></span></a>
             <a class="row-btn" href="#mauer"><svg class="icon" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="1.5"/><path d="M3 9.7h18M3 14.3h18M9 5v4.7M15 5v4.7M6 9.7v4.6M12 9.7v4.6M18 9.7v4.6M9 14.3V19M15 14.3V19"/></svg><span><b>Mauer-Kick</b><small>Tritt die Steine einer Mauer weg, 12 Level</small></span></a>
@@ -136,6 +138,7 @@
                 <button data-area="handstand" role="radio">Handstand</button>
                 <button data-area="pushup" role="radio">Liegestütze</button>
                 <button data-area="plank" role="radio">Plank</button>
+                <button data-area="dumbbell" role="radio">Kurzhantel</button>
               </div>
             </div>
             <div class="row-item">
@@ -146,6 +149,7 @@
                 <button data-ex="pushup" role="radio">Liegestütz</button>
                 <button data-ex="plank" role="radio">Plank</button>
                 <button data-ex="handstand" role="radio">Handstand</button>
+                <button data-ex="curl" role="radio">Curl</button>
               </div>
             </div>
           </div>
@@ -352,6 +356,7 @@
               <div class="wlabel" id="wLabel"></div>
               <div class="meter"><div class="meter-fill" id="wFill"></div></div>
               <div class="wval" id="wVal"></div>
+              <div class="wkg" id="wKg" hidden><span>Gewicht</span><span class="stepper kg-stepper"><button data-wkg="-1" aria-label="weniger Gewicht">−</button><b id="wKgVal"></b><button data-wkg="1" aria-label="mehr Gewicht">+</button></span></div>
               <div class="wguide" id="wGuide" hidden><div class="wguide-anim" id="wGuideAnim"></div><p class="wguide-caption" data-guide-caption></p></div>
               <div class="wfeedback" id="wFeedback"></div>
             </div>
@@ -399,6 +404,7 @@
           <div class="stats" id="resStats"></div>
           <div class="resfeedback" id="resFeedback" hidden></div>
           <div class="resworkout" id="resWorkout"></div>
+          <div class="res-kg" id="resKg"></div>
           <div class="awards small" id="resAch"></div>
           <ol class="replist" id="resReps"></ol>
           <div class="sheet-actions">
